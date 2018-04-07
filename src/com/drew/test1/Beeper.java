@@ -46,36 +46,18 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
  
 public class Beeper extends JPanel 
                     implements ActionListener, FocusListener {
 
- 
-	class InnerHello {
-		InnerHello(){
-			System.out.println("inner class called");
-			//Ternary operator example
-			int numA=5;
-			int numB=990;
-			int numC =(numA>numB)?numA:numB;
-			System.out.println("The larger number is " + numC);
-			
-			//Labeled loop example
-			out: for(int i=0;i<100;i++) {
-					for (int j=0;j<34;j++) {
-						System.out.println(i+", "+j);
-						if(j==22) break;
-					}
-				}
-				
-		}
-	};
-
-	
     public Beeper() {
     	super(new BorderLayout());
-        JButton button = new JButton ("Button North");
+    	this.setFocusable(true);
+    	this.requestFocusInWindow();
+    	JButton button = new JButton ("Button North");
         JButton btn2 = new JButton ("Button Center");
         JButton btn3 = new JButton ("Button South");
     	NorthButtonAction nbutact = new NorthButtonAction();
@@ -83,8 +65,8 @@ public class Beeper extends JPanel
         button.setPreferredSize(new Dimension(200, 80));
         add(button, BorderLayout.NORTH);
         button.addActionListener(this);
-//      I just added this comment for git testing
-        
+
+
 
         btn2.setPreferredSize(new Dimension(200,80));
         add(btn2, BorderLayout.CENTER);
@@ -97,7 +79,12 @@ public class Beeper extends JPanel
 
         btn3.addActionListener(this);
         btn3.addFocusListener(this);
+        KeyInput ki = new KeyInput();
+        addKeyListener(ki);
         
+//        Helper h1 = new Helper();
+//        addKeyListener(h1);
+
 //      Lambda Expression Example
 //        btn3.addActionListener(new ActionListener() {
 //        	
@@ -106,16 +93,18 @@ public class Beeper extends JPanel
 //        	}
 //
 //        });
-        
-    }
  
+    }
+    
+
     public void actionPerformed(ActionEvent e) {
     	Object source = e.getSource();
     	Object command = e.getActionCommand();
     	System.out.println(command);
     	if(command == "Button Center" || command == "Button North") {
     		//System.out.println("This is button center");
-           	Toolkit.getDefaultToolkit().beep();	
+           	Toolkit.getDefaultToolkit().beep();
+        	this.requestFocusInWindow();
     	}
 //    	if(source == button) {
 //    		System.out.println("This is button north");
@@ -128,6 +117,7 @@ public class Beeper extends JPanel
     
     public void focusGained(FocusEvent fe) {
     	System.out.println("Focus on south button.");
+    	this.requestFocusInWindow();
     }
     
     public void focusLost(FocusEvent fe) {
@@ -160,6 +150,8 @@ public class Beeper extends JPanel
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        
+
     }
  
     public static void main(String[] args) {
@@ -172,4 +164,25 @@ public class Beeper extends JPanel
             }
         });
     }
+
+class InnerHello {
+	InnerHello(){
+		System.out.println("inner class called");
+		//Ternary operator example
+		int numA=5;
+		int numB=990;
+		int numC =(numA>numB)?numA:numB;
+		System.out.println("The larger number is " + numC);
+		
+		//Labeled loop example
+		out: for(int i=0;i<100;i++) {
+				for (int j=0;j<34;j++) {
+					System.out.println(i+", "+j);
+					if(j==22) break;
+				}
+			}
+			
+	}
+};
+
 }
