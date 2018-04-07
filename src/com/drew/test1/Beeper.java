@@ -54,7 +54,21 @@ public class Beeper extends JPanel
  
 	class InnerHello {
 		InnerHello(){
-			System.out.println("inner class called");			
+			System.out.println("inner class called");
+			//Ternary operator example
+			int numA=5;
+			int numB=990;
+			int numC =(numA>numB)?numA:numB;
+			System.out.println("The larger number is " + numC);
+			
+			//Labeled loop example
+			out: for(int i=0;i<100;i++) {
+					for (int j=0;j<34;j++) {
+						System.out.println(i+", "+j);
+						if(j==22) break;
+					}
+				}
+				
 		}
 	};
 
