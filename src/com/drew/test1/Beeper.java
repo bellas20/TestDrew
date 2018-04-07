@@ -52,6 +52,13 @@ public class Beeper extends JPanel
                     implements ActionListener, FocusListener {
 
  
+	class InnerHello {
+		InnerHello(){
+			System.out.println("inner class called");			
+		}
+	};
+
+	
     public Beeper() {
     	super(new BorderLayout());
         JButton button = new JButton ("Button North");
@@ -126,6 +133,12 @@ public class Beeper extends JPanel
  
         //Create and set up the content pane.
         JComponent newContentPane = new Beeper();
+        
+        //Create inner class instance
+        Beeper beepo = new Beeper();
+        Beeper.InnerHello ih = beepo.new InnerHello();
+        
+        
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);
 
@@ -138,7 +151,8 @@ public class Beeper extends JPanel
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+    	javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
             }
